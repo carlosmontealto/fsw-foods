@@ -9,6 +9,16 @@
       "username": "postgres",
       "password": "admin",
       "database": "postgres"
+    },
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "db fsw food",
+      "database": "fsw_food",
+      "username": "postgres",
+      "password": "admin"
     }
   ]
 }

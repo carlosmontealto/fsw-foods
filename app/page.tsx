@@ -1,7 +1,7 @@
 import { ChevronRightIcon } from "lucide-react";
 import CategoryList from "./_components/category-list";
 import Header from "./_components/header";
-import ProductList from "./_components/product.list";
+import ProductList from "./_components/product-list";
 import PromoBanner from "./_components/promo-banner";
 import RestaurantList from "./_components/restaurant-list";
 import Search from "./_components/search";
