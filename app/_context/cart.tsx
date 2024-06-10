@@ -66,12 +66,24 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }, [products]);
 
   const totalPrice = useMemo(() => {
-    return products.reduce((acc, product) => {
-      return acc + calculateProductTotalPrice(product) * product.quantity;
-    }, 0);
+    if (products.length > 0) {
+      return (
+        products.reduce((acc, product) => {
+          return acc + calculateProductTotalPrice(product) * product.quantity;
+        }, 0) + Number(products[0].restaurant.deliveryFee)
+      );
+    }
+    return 0;
   }, [products]);
 
-  const totalDiscounts = subtotalPrice - totalPrice;
+  const totalDiscounts = useMemo(() => {
+    return (
+      subtotalPrice -
+      products.reduce((acc, product) => {
+        return acc + calculateProductTotalPrice(product) * product.quantity;
+      }, 0)
+    );
+  }, [products, subtotalPrice]);
 
   const decreaseProductQuantity = (productId: string) => {
     return setProducts((prev) =>
