@@ -150,6 +150,7 @@ const ProductDetails = ({
           </Button>
         </div>
       </div>
+
       <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
         <SheetContent className="w-[90vw]">
           <SheetHeader>
