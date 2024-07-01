@@ -47,6 +47,14 @@ const Cart = () => {
         user: {
           connect: { id: data.user.id },
         },
+        products: {
+          createMany: {
+            data: products.map((product) => ({
+              quantity: product.quantity,
+              productId: product.id,
+            })),
+          },
+        },
       });
       cleanCart();
     } catch (e) {

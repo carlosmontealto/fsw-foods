@@ -56,36 +56,30 @@ const Header = () => {
             <SheetTitle className="text-left">Menu</SheetTitle>
           </SheetHeader>
           {data?.user ? (
-            <>
-              <div className="flex items-center justify-between pt-10">
-                <div className="flex w-full max-w-[80%] items-center gap-3">
-                  <Avatar>
-                    <AvatarImage
-                      src={data?.user?.image as string | undefined}
-                    />
-                    <AvatarFallback>
-                      {data?.user?.name?.split(" ")[0][0]}
-                      {data?.user?.name?.split(" ")[1][0]}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="max-w-[80%] ">
-                    <h3 className="truncate font-semibold">{data.user.name}</h3>
-                    <span className="block text-xs text-muted-foreground">
-                      {data.user.email}
-                    </span>
-                  </div>
+            <div className="flex items-center justify-between pt-10">
+              <div className="flex w-full max-w-[80%] items-center gap-3">
+                <Avatar>
+                  <AvatarImage src={data?.user?.image as string | undefined} />
+                  <AvatarFallback>
+                    {data?.user?.name?.split(" ")[0][0]}
+                    {data?.user?.name?.split(" ")[1][0]}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="max-w-[80%] ">
+                  <h3 className="truncate font-semibold">{data?.user?.name}</h3>
+                  <span className="block text-xs text-muted-foreground">
+                    {data?.user?.email}
+                  </span>
                 </div>
               </div>
-            </>
+            </div>
           ) : (
-            <>
-              <div className="flex items-center justify-between pt-10">
-                <h2 className="font-semibold">Olá. Faça seu login!</h2>
-                <Button size="icon" onClick={handleSignInClick}>
-                  <LogInIcon size={20} />
-                </Button>
-              </div>
-            </>
+            <div className="flex items-center justify-between pt-10">
+              <h2 className="font-semibold">Olá. Faça seu login!</h2>
+              <Button size="icon" onClick={handleSignInClick}>
+                <LogInIcon size={20} />
+              </Button>
+            </div>
           )}
 
           <div className="py-6">
@@ -105,9 +99,12 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                  asChild
                 >
-                  <ScrollTextIcon size={16} />
-                  <span className="block">Meus Pedidos</span>
+                  <Link href="/my-orders">
+                    <ScrollTextIcon size={16} />
+                    <span className="block">Meus Pedidos</span>
+                  </Link>
                 </Button>
                 <Button
                   variant="ghost"
