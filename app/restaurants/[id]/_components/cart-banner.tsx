@@ -1,5 +1,11 @@
 "use client";
 
+import { useContext, useState } from "react";
+
+import { CartContext } from "@/app/_context/cart";
+import { formatCurrency } from "@/app/_helpers/price";
+import { Restaurant } from "@prisma/client";
+
 import Cart from "@/app/_components/cart";
 import { Button } from "@/app/_components/ui/button";
 import {
@@ -8,10 +14,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/app/_components/ui/sheet";
-import { CartContext } from "@/app/_context/cart";
-import { formatCurrency } from "@/app/_helpers/price";
-import { Restaurant } from "@prisma/client";
-import { useContext, useState } from "react";
 
 interface CartBannerProps {
   restaurant: Pick<Restaurant, "id">;

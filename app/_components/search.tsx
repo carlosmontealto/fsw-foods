@@ -1,10 +1,12 @@
 "use client";
 
-import { SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEventHandler, useState } from "react";
+
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+
+import { SearchIcon } from "lucide-react";
 
 const Search = () => {
   const router = useRouter();

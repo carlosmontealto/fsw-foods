@@ -1,12 +1,13 @@
-import { OrderStatus } from "@prisma/client";
-import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { toast } from "sonner";
+
+import { OrderStatus } from "@prisma/client";
 import { createOrder } from "../_actions/order";
 import { CartContext } from "../_context/cart";
 import { formatCurrency } from "../_helpers/price";
+
 import CartItem from "./cart-item";
 import {
   AlertDialog,
@@ -21,6 +22,8 @@ import {
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Separator } from "./ui/separator";
+
+import { Loader2 } from "lucide-react";
 
 interface CartProps {
   // eslint-disable-next-line no-unused-vars

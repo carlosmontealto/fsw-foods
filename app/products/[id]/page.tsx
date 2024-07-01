@@ -1,5 +1,7 @@
-import { db } from "@/app/_lib/prisma";
 import { notFound } from "next/navigation";
+
+import { db } from "@/app/_lib/prisma";
+
 import ProductDetails from "./_components/product-details";
 import ProductImage from "./_components/product-image";
 

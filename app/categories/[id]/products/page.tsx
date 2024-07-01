@@ -1,7 +1,9 @@
+import { notFound } from "next/navigation";
+
+import { db } from "@/app/_lib/prisma";
+
 import Header from "@/app/_components/header";
 import ProductItem from "@/app/_components/product-item";
-import { db } from "@/app/_lib/prisma";
-import { notFound } from "next/navigation";
 
 interface CategoriesPageProps {
   params: {

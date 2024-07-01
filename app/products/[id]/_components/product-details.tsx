@@ -1,4 +1,15 @@
 "use client";
+
+import Image from "next/image";
+import { useContext, useState } from "react";
+
+import { CartContext } from "@/app/_context/cart";
+import {
+  calculateProductTotalPrice,
+  formatCurrency,
+} from "@/app/_helpers/price";
+import { Prisma } from "@prisma/client";
+
 import Cart from "@/app/_components/cart";
 import DeliveryInfo from "@/app/_components/delivery-info";
 import DiscountBadge from "@/app/_components/discount-badge";
@@ -20,15 +31,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/app/_components/ui/sheet";
-import { CartContext } from "@/app/_context/cart";
-import {
-  calculateProductTotalPrice,
-  formatCurrency,
-} from "@/app/_helpers/price";
-import { Prisma } from "@prisma/client";
+
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import Image from "next/image";
-import { useContext, useState } from "react";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{

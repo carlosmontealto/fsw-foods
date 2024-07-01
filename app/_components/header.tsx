@@ -1,16 +1,9 @@
 "use client";
 
-import {
-  HeartIcon,
-  HomeIcon,
-  LogInIcon,
-  LogOutIcon,
-  MenuIcon,
-  ScrollTextIcon,
-} from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
@@ -21,6 +14,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
+
+import {
+  HeartIcon,
+  HomeIcon,
+  LogInIcon,
+  LogOutIcon,
+  MenuIcon,
+  ScrollTextIcon,
+} from "lucide-react";
 
 const Header = () => {
   const { data } = useSession();
