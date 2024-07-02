@@ -58,7 +58,10 @@ const ProductDetails = ({
     useState(false);
 
   const addToCart = ({ emptyCart }: { emptyCart?: boolean }) => {
-    addProductToCart({ product, quantity, emptyCart });
+    addProductToCart({
+      product: { ...product, quantity: quantity },
+      emptyCart,
+    });
     setIsCartOpen(true);
   };
 

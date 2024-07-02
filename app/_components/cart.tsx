@@ -35,7 +35,7 @@ const Cart = ({ setIsOpen }: CartProps) => {
   const { data } = useSession();
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
-  const { products, subtotalPrice, totalPrice, totalDiscounts, cleanCart } =
+  const { products, subtotalPrice, totalPrice, totalDiscounts, clearCart } =
     useContext(CartContext);
 
   const handleFinishOrderClick = async () => {
@@ -66,7 +66,7 @@ const Cart = ({ setIsOpen }: CartProps) => {
           },
         },
       });
-      cleanCart();
+      clearCart();
       setIsOpen(false);
       toast("Pedido realizado com sucesso!", {
         description: "Você pode acompanhá-lo na tela dos seus pedidos.",
