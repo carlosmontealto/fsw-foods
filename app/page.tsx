@@ -12,8 +12,8 @@ import { Button } from "./_components/ui/button";
 
 import { ChevronRightIcon } from "lucide-react";
 
-const Home = async () => {
-  const products = await db.product.findMany({
+const fetch = async () => {
+  const getProducts = await db.product.findMany({
     where: {
       discountPercentage: {
         gt: 0,
@@ -28,6 +28,31 @@ const Home = async () => {
       },
     },
   });
+
+  const getBurguersCategory = await db.category.findFirst({
+    where: {
+      name: "Hambúrgueres",
+    },
+  });
+
+  const getPizzasCategory = await db.category.findFirst({
+    where: {
+      name: "Pizzas",
+    },
+  });
+
+  const [products, burguersCategory, pizzasCategory] = await Promise.all([
+    getProducts,
+    getBurguersCategory,
+    getPizzasCategory,
+  ]);
+
+  return { products, burguersCategory, pizzasCategory };
+};
+
+const Home = async () => {
+  const { products, burguersCategory, pizzasCategory } = await fetch();
+
   return (
     <>
       <Header />
@@ -40,10 +65,12 @@ const Home = async () => {
       </div>
 
       <div className="px-0 pt-6">
-        <PromoBanner
-          src="/promo-banner-01.png"
-          alt="Até 30% de desconto em pizzas!"
-        />
+        <Link href={`/categories/${pizzasCategory?.id}/products`}>
+          <PromoBanner
+            src="/promo-banner-01.png"
+            alt="Até 30% de desconto em pizzas!"
+          />
+        </Link>
       </div>
 
       <div className="space-y-4 pt-6">
@@ -64,10 +91,12 @@ const Home = async () => {
       </div>
 
       <div className="px-0 pt-6">
-        <PromoBanner
-          src="/promo-banner-02.png"
-          alt="A partir de R$17,90 em lanches"
-        />
+        <Link href={`/categories/${burguersCategory?.id}/products`}>
+          <PromoBanner
+            src="/promo-banner-02.png"
+            alt="A partir de R$17,90 em lanches"
+          />
+        </Link>
       </div>
 
       <div className="space-y-4 py-6 pt-6">
