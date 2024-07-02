@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 
 import { CartContext, CartProduct } from "../_context/cart";
 import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price";
@@ -90,4 +90,6 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
   );
 };
 
-export default CartItem;
+export default memo(CartItem, (prev, next) => {
+  return prev.cartProduct.quantity === next.cartProduct.quantity;
+});
