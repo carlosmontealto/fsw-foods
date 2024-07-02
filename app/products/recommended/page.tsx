@@ -27,7 +27,7 @@ const RecommendedProductsPage = async () => {
         {products.map((product) => (
           <ProductItem
             key={product.id}
-            product={product}
+            product={JSON.parse(JSON.stringify(product))}
             className="w-full min-w-full"
           />
         ))}

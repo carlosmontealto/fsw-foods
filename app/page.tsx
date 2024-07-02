@@ -87,7 +87,7 @@ const Home = async () => {
             </Link>
           </Button>
         </div>
-        <ProductList products={products} />
+        <ProductList products={JSON.parse(JSON.stringify(products))} />
       </div>
 
       <div className="px-0 pt-6">

@@ -89,7 +89,10 @@ const Cart = ({ setIsOpen }: CartProps) => {
           <>
             <div className="flex-auto space-y-4">
               {products.map((product) => (
-                <CartItem key={product.id} cartProduct={product} />
+                <CartItem
+                  key={product.id}
+                  cartProduct={JSON.parse(JSON.stringify(product))}
+                />
               ))}
             </div>
             <div className="mt-6">

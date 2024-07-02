@@ -106,10 +106,14 @@ const ProductDetails = ({
           <div>
             <div className="flex items-center gap-2">
               <h2 className="text-xl font-semibold">
-                {formatCurrency(calculateProductTotalPrice(product))}
+                {formatCurrency(
+                  calculateProductTotalPrice(
+                    JSON.parse(JSON.stringify(product)),
+                  ),
+                )}
               </h2>
               {product.discountPercentage > 0 && (
-                <DiscountBadge product={product} />
+                <DiscountBadge product={JSON.parse(JSON.stringify(product))} />
               )}
             </div>
             {product.discountPercentage > 0 && (
@@ -135,7 +139,9 @@ const ProductDetails = ({
         </div>
 
         <div className="px-5">
-          <DeliveryInfo restaurant={product.restaurant} />
+          <DeliveryInfo
+            restaurant={JSON.parse(JSON.stringify(product.restaurant))}
+          />
         </div>
 
         <div className="mt-6 space-y-3 px-5">
@@ -145,7 +151,9 @@ const ProductDetails = ({
 
         <div className="mt-6 space-y-3">
           <h3 className="px-5 font-semibold">Sucos</h3>
-          <ProductList products={complementaryProducts} />
+          <ProductList
+            products={JSON.parse(JSON.stringify(complementaryProducts))}
+          />
         </div>
 
         <div className="mt-6 px-5">

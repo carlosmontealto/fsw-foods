@@ -2,8 +2,8 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { db } from "@/app/_lib/prisma";
 import { authOptions } from "@/app/_lib/auth";
+import { db } from "@/app/_lib/prisma";
 
 import DeliveryInfo from "@/app/_components/delivery-info";
 import ProductList from "@/app/_components/product-list";
@@ -71,7 +71,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
   return (
     <div>
       <RestaurantImage
-        restaurant={restaurant}
+        restaurant={JSON.parse(JSON.stringify(restaurant))}
         userFavoriteRestaurants={userFavoriteRestaurants}
       />
 
@@ -94,7 +94,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
       </div>
 
       <div className="px-5">
-        <DeliveryInfo restaurant={restaurant} />
+        <DeliveryInfo restaurant={JSON.parse(JSON.stringify(restaurant))} />
       </div>
 
       <div className="mt-3 flex gap-4 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden">
@@ -112,16 +112,20 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
 
       <div className="mt-6 space-y-4">
         <h2 className="px-5 font-semibold">Mais Pedidos</h2>
-        <ProductList products={restaurant.products} />
+        <ProductList
+          products={JSON.parse(JSON.stringify(restaurant.products))}
+        />
       </div>
 
       {restaurant.categories.map((category) => (
         <div key={category.id} className="mt-6 space-y-4">
           <h2 className="px-5 font-semibold">{category.name}</h2>
-          <ProductList products={category.products} />
+          <ProductList
+            products={JSON.parse(JSON.stringify(category.products))}
+          />
         </div>
       ))}
-      <CartBanner restaurant={restaurant} />
+      <CartBanner restaurant={JSON.parse(JSON.stringify(restaurant))} />
     </div>
   );
 };
