@@ -1,7 +1,9 @@
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { db } from "@/app/_lib/prisma";
+import { authOptions } from "@/app/_lib/auth";
 
 import DeliveryInfo from "@/app/_components/delivery-info";
 import ProductList from "@/app/_components/product-list";
@@ -17,6 +19,8 @@ interface RestaurantPageProps {
 }
 
 const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
+  const session = await getServerSession(authOptions);
+
   const restaurant = await db.restaurant.findUnique({
     where: {
       id,
@@ -58,9 +62,18 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
 
   if (!restaurant) return notFound();
 
+  const userFavoriteRestaurants = await db.userFavoriteRestaurant.findMany({
+    where: {
+      userId: session?.user.id,
+    },
+  });
+
   return (
     <div>
-      <RestaurantImage restaurant={restaurant} />
+      <RestaurantImage
+        restaurant={restaurant}
+        userFavoriteRestaurants={userFavoriteRestaurants}
+      />
 
       <div className=" relative z-50 mt-[-1.5rem] flex items-center justify-between rounded-t-3xl bg-white px-5 py-5 pt-5">
         <div className="flex items-center gap-[0.375rem]">

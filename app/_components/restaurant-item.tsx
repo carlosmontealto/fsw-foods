@@ -1,12 +1,13 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { toast } from "sonner";
 
 import { Restaurant, UserFavoriteRestaurant } from "@prisma/client";
-import { toggleFavoriteRestaurant } from "../_actions/restaurant";
 import { formatCurrency } from "../_helpers/price";
+import { isRestaurantFavorited } from "../_helpers/restaurant";
+import useToggleFavoriteRestaurant from "../_hooks/use-toggle-favorite-restaurant";
 import { cn } from "../_lib/utils";
 
 import { Button } from "./ui/button";
@@ -14,36 +15,26 @@ import { Button } from "./ui/button";
 import { BikeIcon, HeartIcon, StarIcon, TimerIcon } from "lucide-react";
 
 interface RestaurantItemProps {
-  userId?: string;
   restaurant: Restaurant;
   className?: string;
-  userFavoritesRestaurants: UserFavoriteRestaurant[];
+  userFavoriteRestaurants: UserFavoriteRestaurant[];
 }
 
 const RestaurantItem = ({
   restaurant,
   className,
-  userId,
-  userFavoritesRestaurants,
+  userFavoriteRestaurants,
 }: RestaurantItemProps) => {
-  const isFavorite = userFavoritesRestaurants.some(
-    (fav) => fav.restaurantId === restaurant.id,
+  const { data } = useSession();
+  const isFavorite = isRestaurantFavorited(
+    restaurant.id,
+    userFavoriteRestaurants,
   );
-
-  const handleFavoriteClick = async () => {
-    if (!userId) return;
-
-    try {
-      await toggleFavoriteRestaurant(userId, restaurant.id);
-      toast.success(
-        isFavorite
-          ? "Restaurante removido dos favoritos!"
-          : "Restaurante adicionado aos favoritos!",
-      );
-    } catch (error) {
-      toast.error("Erro ao adicionar aos favoritos!");
-    }
-  };
+  const { handleFavoriteClick } = useToggleFavoriteRestaurant({
+    restaurantId: restaurant.id,
+    userId: data?.user.id,
+    restaurantIsFavorited: isFavorite,
+  });
 
   return (
     <div className={cn("min-w-[266px] max-w-[266px]", className)}>
@@ -62,7 +53,7 @@ const RestaurantItem = ({
             <StarIcon size={12} className="fill-yellow-400 text-yellow-400" />
             <span className="text-xs font-semibold">5.0</span>
           </div>
-          {userId && (
+          {data?.user.id && (
             <Button
               className={`absolute right-2 top-2 m-0 h-7 w-7 rounded-full bg-gray-700 p-0 ${isFavorite && "bg-primary hover:bg-gray-700"}`}
               onClick={handleFavoriteClick}
